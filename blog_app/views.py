@@ -32,8 +32,8 @@ class PostDetailView(DetailView):
     context_object_name = "post"
 
     def get_queryset(self):
-        queryset = Post.objects.filter(pk=self.kwargs["pk"], published_at__isnull=False)
-        return queryset
+        post = Post.objects.filter(pk=self.kwargs["pk"], published_at__isnull=False)
+        return post
 
 
 class DraftListView(LoginRequiredMixin, ListView):
@@ -63,6 +63,8 @@ class PostDeleteView(DeleteView):
     success_url = reverse_lazy("post-list")
 
     def form_valid(self, form):
+        messages.success(self.request, "Post was deleted successfully.")
+        messages.success(self.request, "Post was deleted successfully.")
         messages.success(self.request, "Post was deleted successfully.")
         return super().form_valid(form)
 

@@ -64,8 +64,6 @@ class PostDeleteView(DeleteView):
 
     def form_valid(self, form):
         messages.success(self.request, "Post was deleted successfully.")
-        messages.success(self.request, "Post was deleted successfully.")
-        messages.success(self.request, "Post was deleted successfully.")
         return super().form_valid(form)
 
 
@@ -81,6 +79,7 @@ class DraftPublishView(LoginRequiredMixin, View):
         post = Post.objects.get(pk=pk, published_at__isnull=True)
         post.published_at = timezone.now()
         post.save()
+        messages.success(self.request, "Post was published successfully.")
         return redirect("post-detail", pk)
 
 
